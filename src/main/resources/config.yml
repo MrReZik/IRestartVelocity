@@ -1,0 +1,38 @@
+settings:
+  time: "00:00"
+  timezone: "Europe/Moscow"
+  type: "RESTART"
+  actionbar-timer: true
+
+warnings:
+  times: [600, 300, 60, 30, 10, 5, 4, 3, 2, 1]
+  title:
+    enabled: true
+    text: "&#ff0000⚠ РЕСТАРТ ⚠"
+    subtext: "&#ffca00Сервер перезагрузится через %time% сек"
+    fade-in: 10
+    stay: 40
+    fade-out: 10
+  chat:
+    enabled: true
+    message:
+      - ""
+      - " &c&lВНИМАНИЕ!"
+      - " &fДо планового рестарта осталось: &#00ff00%time% сек."
+      - ""
+
+actions:
+  pre-restart-commands:
+    - "alert Сервер уходит на перезагрузку!"
+  kick:
+    enabled: true
+    message: "&cСервер перезагружается, перезайдите через минуту."
+  reload-cmd: "irestart reload"
+
+messages:
+  prefix: "&8[&biRestart&8] &r"
+  no-perm: "&cУ вас нет прав!"
+  reloaded: "&aКонфигурация перезагружена!"
+  help:
+    - "&b/irestart now &7- Рестарт сейчас"
+    - "&b/irestart reload &7- Перезагрузить конфиг"

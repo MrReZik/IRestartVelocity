@@ -1,0 +1,41 @@
+plugins {
+    id 'java'
+    id 'com.github.johnrengelman.shadow' version '8.1.1'
+}
+
+group = 'com.mrrezik.irestart'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+    // ВАЖНО: Используем официальный репозиторий PaperMC для Velocity 3.x+
+    maven {
+        name = "PaperMC"
+        url = "https://repo.papermc.io/repository/maven-public/"
+    }
+}
+
+dependencies {
+    // Velocity 3.4.0-SNAPSHOT
+    compileOnly "com.velocitypowered:velocity-api:3.4.0-SNAPSHOT"
+    annotationProcessor "com.velocitypowered:velocity-api:3.4.0-SNAPSHOT"
+
+    // Библиотеки (SnakeYAML для конфигов и Adventure для цветов)
+    implementation "org.yaml:snakeyaml:2.2"
+    implementation "net.kyori:adventure-text-serializer-legacy:4.17.0"
+}
+
+java {
+    // Java 21 как вы просили
+    toolchain.languageVersion = JavaLanguageVersion.of(21)
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}
+
+shadowJar {
+    // Перемещаем библиотеки внутрь плагина, чтобы не было конфликтов
+    relocate 'org.yaml.snakeyaml', 'com.mrrezik.irestart.libs.snakeyaml'
+    relocate 'net.kyori.adventure.text.serializer.legacy', 'com.mrrezik.irestart.libs.adventure.legacy'
+}
